@@ -12,6 +12,10 @@ import random
 
 
 def generate_password(length: int = 10) -> str:
+    """
+    generate radnom password with given length
+    """
+
     password = ''
     for _ in range(length):
         password += random.choice(string.ascii_letters)
