@@ -5,6 +5,7 @@ pylint, flake8, pip check .travis.ci
 
 
 # 1. setup travis CI.
-# 2. flake8, flake8-builtins, flake8-print
+# 2. flake8, flake8-builtins, flake8-print (pip install, flake8 app/ - SUCCESS)
+# 3. Форма доб. модели Author
 
 # pip install pylint???

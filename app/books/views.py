@@ -1,13 +1,32 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 from books.models import Book
+from books.forms import BookForm
 
 
 def book_list(request):
 
-    response_content = ''
+    context = {
+        'books_list': Book.objects.all(),
+    }
 
-    for book in Book.objects.all():  # Book.objects.all() - SELECT * FROM books_book;
-        response_content += f'ID: {book.id}, Author: {book.author} <br/>'
+    return render(request, 'books_list.html', context=context)
 
-    return HttpResponse(response_content)
+
+def book_create(request):
+    form_data = request.GET
+
+    if form_data:
+        form = BookForm(form_data)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/books/list/')
+    else:
+        form = BookForm()
+
+    context = {
+        'message': 'BOOK CREATE',
+        'form': form,
+    }
+    return render(request, 'books_create.html', context=context)
