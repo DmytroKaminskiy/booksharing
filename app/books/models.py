@@ -14,7 +14,8 @@ class Book(models.Model):  # DO NOT TOUCH ME
 
 
 # 1  create author model with fields (first_name, last_name, date_of_birth,
-# date_of_death, country, gender, native_language) - pay attention on dataTypes, https://docs.djangoproject.com/en/3.1/ref/models/fields/
+# date_of_death, country, gender, native_language) - pay attention on dataTypes
+# https://docs.djangoproject.com/en/3.1/ref/models/fields/
 class Author:
     pass
 

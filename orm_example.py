@@ -21,6 +21,7 @@ sql_result_dict = (
 def get_full_name(user):
     return f"{user['first_name']} {user['last_name']}"
 
+
 # for user in sql_result_dict:
 #     print(get_full_name(user))
 
@@ -36,6 +37,7 @@ class User:
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 
+
 # user1 = User(**sql_result_dict[0])  # __new__ -> self, __init__
 # user2 = User(**sql_result_dict[1])
 
@@ -50,3 +52,7 @@ print(users)
 
 # ORM - object relation mapping
 # Django ORM, SqlAlchemy ORM.
+
+first_name = 'Dima'
+last_name = 'Kaminskyi'
+age = 29
