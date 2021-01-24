@@ -2,3 +2,9 @@
 2. Создать простую схему базы данных (https://app.diagrams.net/)
 
 pylint, flake8, pip check .travis.ci
+
+
+# 1. setup travis CI.
+# 2. flake8, flake8-builtins, flake8-print
+
+# pip install pylint???
