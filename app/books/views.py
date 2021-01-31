@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -11,7 +11,6 @@ def index(request):
 
 
 def book_list(request):
-
     context = {
         'books_list': Book.objects.all(),
     }
@@ -65,6 +64,11 @@ def book_delete(request, pk):
     instance = get_object_or_404(Book, pk=pk)
     instance.delete()
     return redirect('books-list')
+
+
+'''
+google.com -> 
+'''
 
 # GET
 '''

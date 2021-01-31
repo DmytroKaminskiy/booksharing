@@ -18,6 +18,8 @@ from django.urls import path
 
 from books import views
 
+# from books.models import Book  WRONG
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +27,7 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     path('books/list/', views.book_list, name='books-list'),
+
     path('books/create/', views.book_create, name='books-create'),
     path('books/update/<int:pk>/', views.book_update, name='books-update'),
     path('books/delete/<int:pk>/', views.book_delete, name='books-delete'),
