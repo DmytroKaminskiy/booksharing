@@ -9,3 +9,6 @@ pylint, flake8, pip check .travis.ci
 # 3. Форма доб. модели Author
 
 # pip install pylint???
+
+1 {#{% include 'parts/footer.html' %}#}
+2 Показать всех авторов в таблице

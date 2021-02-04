@@ -1,26 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h1>{{ message }}</h1>
+{% block content %}
 
-<p>
-    form to add new book
-</p>
+    <h1>{{ message }}</h1>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+    <p>
+        form to add new book
+    </p>
 
-{% if form.instance.id %}
-    <a href="{% url 'books-delete' form.instance.id %}">DELETE</a>
-{% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
 
-</body>
-</html>
+    {% if form.instance.id %}
+        <a href="{% url 'books-delete' form.instance.id %}">DELETE</a>
+    {% endif %}
+
+{% endblock content %}
