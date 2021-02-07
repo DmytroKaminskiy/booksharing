@@ -13,3 +13,8 @@ class BookForm(forms.ModelForm):
             'review',
             'condition',
         )
+
+
+# class LoginForm(forms.Form):
+#     username = forms.CharField()
+#     password = forms.CharField()

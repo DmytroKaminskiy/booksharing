@@ -1,6 +1,7 @@
-from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from django.views.generic import CreateView
 
 from books.models import Book
 from books.forms import BookForm
@@ -36,6 +37,20 @@ def book_create(request):
     return render(request, 'books_create.html', context=context)
 
 
+class BookCreate(CreateView):
+    model = Book
+    success_url = reverse('books-list')
+    # form_class = BookForm
+    # template_name = 'books_create.html'
+    fields = (
+        'author',
+        'title',
+        'publish_year',
+        'review',
+        'condition',
+    )
+
+
 def book_update(request, pk):
 
     # try:
@@ -66,35 +81,28 @@ def book_delete(request, pk):
     return redirect('books-list')
 
 
-'''
-google.com -> 
-'''
-
-# GET
-'''
-Request URL: http://127.0.0.1:8000/books/create/?name=Dima&age=29
-Request Method: GET
-Remote Address: 127.0.0.1:8000
-Referrer Policy: same-origin
-'''
-
-
-# POST
-'''
-Request URL: http://127.0.0.1:8000/books/create/
-Request Method: POST
-Remote Address: 127.0.0.1:8000
-Referrer Policy: same-origin
-
-name=Dima&age=29
-'''
-
-
-"""
-C - create - POST
-R - read - GET
-U - update - PUT/PATCH
-D - delete - DELETE
-
-HEAD, OPTIONS
-"""
+# def login_view(request):
+#     form_data = request.POST
+#     form_class = LoginForm
+#
+#     if request.method == 'POST':
+#         form = form_class(form_data)
+#         if form.is_valid():
+#
+#             user = authenticate(**form.cleaned_data)
+#             if user:
+#                 login(request, user)
+#             return redirect('books-list')
+#
+#     elif request.method == 'GET':
+#         form = form_class()
+#
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'login.html', context=context)
+#
+#
+# def logout_view(request):
+#     logout(request)
+#     return redirect('login')
