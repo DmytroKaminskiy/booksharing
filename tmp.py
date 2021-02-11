@@ -65,5 +65,15 @@ def foo():
     return 2
 
 
+#
+# class Shape:
+#     def area(self):
+#         raise NotImplemented('Area method should be implemented')
+#
+# class Circle(Shape):
+#     pass
+#
+# class Triangle(Shape):
+#     pass
 
 
