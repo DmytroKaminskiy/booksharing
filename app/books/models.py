@@ -5,13 +5,6 @@ from django.db import models
 # int -34, -23459873458734, 238742395834
 
 
-class Book(models.Model):  # DO NOT TOUCH ME
-    author = models.CharField(max_length=128)
-    title = models.CharField(max_length=128)
-    publish_year = models.PositiveSmallIntegerField()
-    review = models.CharField(max_length=512)
-    condition = models.PositiveSmallIntegerField()
-
 
 # 1  create author model with fields (first_name, last_name, date_of_birth,
 # date_of_death, country, gender, native_language) - pay attention on dataTypes
@@ -40,3 +33,18 @@ class Author(models.Model):
     #         force_insert=force_insert, force_update=force_update, using=using,
     #         update_fields=update_fields
     #     )
+
+
+class Book(models.Model):  # DO NOT TOUCH ME
+    title = models.CharField(max_length=128)
+    publish_year = models.PositiveSmallIntegerField()
+    review = models.CharField(max_length=512)
+    condition = models.PositiveSmallIntegerField(null=True)
+    # category = FK
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE,
+                               null=True, default=None)
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL,
+                               null=True, default=None)
+
+
+# add Model Category

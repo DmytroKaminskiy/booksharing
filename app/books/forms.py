@@ -14,7 +14,15 @@ class BookForm(forms.ModelForm):
             'condition',
         )
 
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
 
-# class LoginForm(forms.Form):
-#     username = forms.CharField()
-#     password = forms.CharField()
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.user = self.user
+
+        if commit:
+            instance.save()
+
+        return instance

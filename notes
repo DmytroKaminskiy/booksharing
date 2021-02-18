@@ -12,3 +12,7 @@ pylint, flake8, pip check .travis.ci
 
 1 {#{% include 'parts/footer.html' %}#}
 2 Показать всех авторов в таблице
+
+
+1. # add Model Category (name)
+2. Show book Category Name

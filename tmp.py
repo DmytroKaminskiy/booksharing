@@ -58,11 +58,11 @@ t = (1, 2, [3, 4])
 
 
 
-def foo():
-    print(1)
-    print(1)
-    print(1)
-    return 2
+# def foo():
+#     print(1)
+#     print(1)
+#     print(1)
+#     return 2
 
 
 #
@@ -76,4 +76,24 @@ def foo():
 # class Triangle(Shape):
 #     pass
 
+class Dog:
+    def __init__(self, name):
+        self.name = name
 
+    def __add__(self, other):
+        return self.__class__(f'{self.name} {other.name}')
+
+    def __str__(self):
+        return self.name
+
+
+dog_boy = Dog('Sharik')
+dog_girl = Dog('Danna')
+
+dog_child = dog_boy + dog_girl + dog_boy + dog_girl
+# dog_boy.__add__(dog_girl.__add__(dog_boy.__add__(dog_girl)))
+
+print(dog_child)
+# str_value = str(dog_child)  # dog_child.__str__()
+
+# dog_child = dog_boy.__add__(dog_girl)
