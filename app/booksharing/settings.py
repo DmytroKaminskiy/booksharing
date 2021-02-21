@@ -135,6 +135,19 @@ AUTH_USER_MODEL = 'accounts.User'
 
 STATIC_URL = '/static/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'debug': {
+        'task': 'accounts.tasks.debug',
+        'schedule': crontab(minute='*/1'),
+    },
+}
+
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
