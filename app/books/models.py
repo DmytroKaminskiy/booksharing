@@ -18,6 +18,13 @@ class Author(models.Model):
     gender = models.BooleanField(null=True)
     native_language = models.CharField(max_length=64)
 
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     def save(self, *args, **kwargs):
         # args - tuple
         # kwargs - dict
@@ -45,6 +52,13 @@ class Book(models.Model):  # DO NOT TOUCH ME
                                null=True, default=None)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL,
                                null=True, default=None)
+
+    # @property
+    # def author_full_name(self):
+    #     return f"{self.author.first_name} {self.author.last_name}"
+
+    def __str__(self):
+        return f"{self.id} {self.title} {self.author_id}"
 
 
 # add Model Category

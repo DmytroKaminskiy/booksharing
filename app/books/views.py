@@ -1,12 +1,16 @@
+import csv
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, UpdateView, DeleteView, ListView,
-    TemplateView,
+    TemplateView, View,
 )
+from django.http import HttpResponse
 
 from books.forms import BookForm
 from books.models import Book
+from books.utils import display
 
 
 class FormUserKwargMixin:
@@ -48,3 +52,36 @@ class BookUpdate(FormUserKwargMixin, UpdateView):
 class BookDelete(DeleteView):
     model = Book
     success_url = reverse_lazy('books:list')
+
+
+class DownloadCSVBookView(View):
+
+    HEADERS = (
+        'id',
+        'title',
+        'author.full_name',
+        'author.get_full_name',
+        'publish_year',
+        'condition',
+    )
+
+    def get(self, request):
+        # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+        writer = csv.writer(response)
+
+        writer.writerow(self.HEADERS)
+
+        for book in Book.objects.all().select_related('author').iterator():  # TODO add only method!
+            writer.writerow([
+                display(book, header)
+                for header in self.HEADERS
+            ])
+
+        return response
+
+
+# response = req.get(...)
+# response.read()
