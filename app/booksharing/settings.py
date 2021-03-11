@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'debug_toolbar',
+    'crispy_forms',
 
     'accounts',
     'books',
@@ -135,6 +136,11 @@ AUTH_USER_MODEL = 'accounts.User'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+MEDIA_ROOT = BASE_DIR / '..' / 'media'
+MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -152,3 +158,5 @@ CELERY_BEAT_SCHEDULE = {
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

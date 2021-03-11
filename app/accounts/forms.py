@@ -1,13 +1,12 @@
 from django import forms
-from django.urls import reverse
 
 from accounts.models import User
 from accounts.tasks import send_activate_account_email
 
 
 class SighUpForm(forms.ModelForm):
-    password1 = forms.CharField(min_length=6)
-    password2 = forms.CharField(min_length=6)
+    password1 = forms.CharField(min_length=6, widget=forms.PasswordInput())
+    password2 = forms.CharField(min_length=6, widget=forms.PasswordInput())
 
     class Meta:
         model = User
