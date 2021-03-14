@@ -108,8 +108,5 @@ print(dog_child)
 4. Сменить статус после отправки/получения (подтвердить/отменить)
 
 
-1. Bootstrap + django-crispy-forms
-2. Add cover (FileField) to Book model + cover for create and update book
-3. Сделать отдельную страницу с детал. о каждой книге. показать обложку книги или деволтную
 
 """
