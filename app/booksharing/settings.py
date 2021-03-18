@@ -14,15 +14,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'kpm*)^nlw)0v0z=_1vmgj768o@q3=zru=u=a1%wi%=acj*hj@yp3(s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('ENV') == 'dev'
-print(os.getenv('ENV'), DEBUG)
+# DEBUG = os.getenv('ENV') == 'dev'
+DEBUG = True
+# print(os.getenv('ENV'), DEBUG)
 
 ALLOWED_HOSTS = ['*']
 
 # 1. django
 # 2. 3rd packages (pip install django_filter)
 # 3. Custom
-
 
 # Application definition
 
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
     'crispy_forms',
+    'rest_framework',
+    'drf_yasg',
+    'django_filters',
 
     'accounts',
     'books',
@@ -153,3 +156,16 @@ INTERNAL_IPS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.IsAuthenticated',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}

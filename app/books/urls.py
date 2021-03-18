@@ -18,4 +18,7 @@ urlpatterns = [
     path('delete/<int:pk>/', views.BookDelete.as_view(), name='delete'),
     path('download/csv/', views.DownloadCSVBookView.as_view(), name='download-csv'),
     path('create/book/request/<int:book_id>/', views.RequestBookCreate.as_view(), name='create-book-request'),
+
+    # API
+    # path('api/v1/books/', views.BookApiList.as_view(), name='api-books'),
 ]

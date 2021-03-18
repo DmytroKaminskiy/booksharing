@@ -1,4 +1,5 @@
 import csv
+import json
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
@@ -172,3 +173,17 @@ class DownloadCSVBookView(View):
 
 # response = req.get(...)
 # response.read()
+
+
+
+# class BookApiList(View):
+#     def get(self, request):
+#         queryset = Book.objects.all()
+#         results = [
+#             {'id': book.id, 'title': book.title}
+#             for book in queryset
+#         ]
+#         data = {
+#             'results': results
+#         }
+#         return HttpResponse(json.dumps(data), content_type='application/json')
