@@ -16,7 +16,7 @@ class SimpleMiddleware:
         start = time()
         response = self.get_response(request)
         end = time()
-        print(f'Request-Response took: {end - start}')
+        # print(f'Request-Response took: {end - start}')
 
         # Log.objects.create(...)
         return response

@@ -9,8 +9,14 @@ from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 # from books.models import Book  WRONG
+API_V1_PREFIX = 'api/v1/'
 
 
 urlpatterns = [
@@ -18,7 +24,11 @@ urlpatterns = [
 
     path('accounts/', include('django.contrib.auth.urls')),
     path('books/', include('books.urls')),
-    path('api/v1/', include('books.api.urls')),
+
+    # API
+    path(API_V1_PREFIX, include('books.api.urls')),
+    path(f'{API_V1_PREFIX}token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path(f'{API_V1_PREFIX}token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('', views.Index.as_view(), name='index'),
 

@@ -16,14 +16,15 @@ class User(AbstractUser):
     email = models.EmailField(
         'email address', blank=False, null=False, unique=True,
     )
-    avatar = models.FileField(null=True, default=True, upload_to=user_upload_avatar)
+    # avatar = models.FileField(null=True, default=True, upload_to=user_upload_avatar)
+    avatar = models.CharField(max_length=128)  # TODO
 
-    def save(self, *args, **kwargs):
+    # def save(self, *args, **kwargs):
 
-        if not self.username:
-            self.username = str(uuid.uuid4())
+        # if not self.username:
+        #     self.username = str(uuid.uuid4())
 
-        super().save(*args, **kwargs)
+        # super().save(*args, **kwargs)
 
 
 class ContactUs(models.Model):

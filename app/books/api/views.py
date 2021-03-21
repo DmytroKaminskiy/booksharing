@@ -26,3 +26,6 @@ class BookModelViewSet(viewsets.ModelViewSet):
     #     'title': ['icontains', 'exact'], # filter(title='awda'), filter(title__exact='awda')
     #     'condition': ['gt', 'gte', 'lt', 'lte'],
     # }
+    # def list(self, request, *args, **kwargs):
+    #     breakpoint()
+    #     super().list(request, *args, **kwargs)

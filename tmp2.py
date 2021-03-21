@@ -1,6 +1,6 @@
 from time import sleep
 
-sleep(30)
+# sleep(30)
 
 
 """
@@ -8,3 +8,9 @@ sleep(30)
 2. Run nginx with uwsgi - screenshot (browser)
 3. serve media files via nginx
 """
+
+
+def foo(a, b):
+    return a + b
+
+assert foo(3, 4) == 7
