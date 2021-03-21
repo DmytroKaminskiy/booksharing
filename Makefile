@@ -17,5 +17,8 @@ shell_plus:
 makemigrations:
 	$(manage_py) makemigrations
 
+pytest:
+	pytest app/ --cov=app --cov-report html
+
 flake8:
 	flake8 app/
