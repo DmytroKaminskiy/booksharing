@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.cache import cache
 
 from books import model_choices as mch
 
@@ -44,12 +45,41 @@ class Author(models.Model):
     #     )
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=64)
+
+    CACHE_OBJECTS_LIST = 'CategoryList'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self._refresh_cache_objects_list()
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        self._refresh_cache_objects_list()
+
+    @classmethod
+    def _refresh_cache_objects_list(cls):
+        from books.api.serializers import CategorySerializer  # noqa
+
+        cache.delete(cls.CACHE_OBJECTS_LIST)
+        queryset = cls.objects.all()
+        serializer = CategorySerializer(queryset, many=True)
+        response_data = serializer.data
+        cache.set(Category.CACHE_OBJECTS_LIST, response_data, 60 * 60 * 24 * 7)
+
+    def __str__(self):
+        return self.name
+
+
 class Book(models.Model):  # DO NOT TOUCH ME
     title = models.CharField(max_length=128)
     publish_year = models.PositiveSmallIntegerField()
     review = models.CharField(max_length=512)
     condition = models.PositiveSmallIntegerField(null=True)
     # category = FK
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,
+                               null=True, default=None)
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE,
                                null=True, default=None)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL,

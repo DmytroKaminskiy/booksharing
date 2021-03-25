@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from books.models import Book
+from books.models import Book, Category
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -22,3 +22,10 @@ class BookSerializer(serializers.ModelSerializer):
     #     attrs['title'] = attrs['title'].lower()
     #     return attrs
     # def validate_title(  # -> clean
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ('id', 'name')

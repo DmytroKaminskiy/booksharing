@@ -14,5 +14,6 @@ app_name = 'books-api'
 router = DefaultRouter()
 
 router.register('books', views.BookModelViewSet, basename='book')
+router.register('categories', views.CategoryModelViewSet, basename='category')
 
 urlpatterns = router.urls
