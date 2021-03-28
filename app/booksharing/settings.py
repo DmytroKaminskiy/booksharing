@@ -82,10 +82,23 @@ WSGI_APPLICATION = 'booksharing.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+# TODO
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'booksharing_db',
+        'USER': 'booksharing',
+        'PASSWORD': 'password',
+        'HOST': '10.136.66.96',
+        'PORT': '',
     }
 }
 

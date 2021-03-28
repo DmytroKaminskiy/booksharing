@@ -108,5 +108,6 @@ print(dog_child)
 4. Сменить статус после отправки/получения (подтвердить/отменить)
 
 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFx9ngchJm6Xquij/7LXHYHE9u6aq/cbNoj/ahrETuF0jD9es0QbC/CizMQh7th2BnTBKcm5E2kQuynEdTew52XLwmYSFRkJ44FWeNra0XJZxjPQHij0IDj39r96pbKgFKvw12DAeoWJMl8hJAPHiPJcEMIXEYvHSs6DcJmqZQIVqOL3uJ/pDUQS+1V6CnhI+jJGNL87yP/HvIb2F9s4OZ6ftuaHUDphauIn3hU5gATvmQ+9mlz5LTazum5dSfRjOzTQ7gILqq7Mee+fPgkvBxsBX/4Z/3gWPGVOM8nlEOILpD4dPospYqAHCyERFkIvJjSVUBnYJ6my/4EzlJKpHr dmytrokaminskiy@dmytrokaminskiy-All-Series
 
 """
