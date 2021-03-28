@@ -161,7 +161,12 @@ MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_BROKER_URL = 'amqp://{0}:{1}@{2}:{3}//'.format(
+    'admin',
+    'mypassword',
+    '10.136.66.99',
+    '5672',
+)
 
 from celery.schedules import crontab
 
