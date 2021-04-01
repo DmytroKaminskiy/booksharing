@@ -4,7 +4,10 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse_lazy
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".." / ".env")  # take environment variables from .env.
 
 
 # Quick-start development settings - unsuitable for production
@@ -14,9 +17,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'kpm*)^nlw)0v0z=_1vmgj768o@q3=zru=u=a1%wi%=acj*hj@yp3(s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.getenv('ENV') == 'dev'
-DEBUG = False
-# print(os.getenv('ENV'), DEBUG)
+DEBUG = os.getenv('ENV') == 'dev'  # 'dev' == 'dev'
+# DEBUG = False
+print(os.getenv('ENV'), DEBUG)
 
 ALLOWED_HOSTS = ['*']
 
@@ -89,23 +92,24 @@ WSGI_APPLICATION = 'booksharing.wsgi.application'
 #     }
 # }
 
-
-# TODO
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'booksharing_db',
-        'USER': 'booksharing',
-        'PASSWORD': 'password',
-        'HOST': '10.136.66.96',
-        'PORT': '',
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': os.environ.get('POSTGRES_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '10.136.66.94:11211',
+        'LOCATION': '{}:{}'.format(
+            os.environ.get('CACHE_HOST', '127.0.0.1'),
+            os.environ.get('CACHE_PORT', '11211'),
+        ),
         # 'LOCATION': 'my-domain.com:11211',
     }
 }
@@ -162,10 +166,10 @@ MEDIA_URL = '/media/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CELERY_BROKER_URL = 'amqp://{0}:{1}@{2}:{3}//'.format(
-    'admin',
-    'mypassword',
-    '10.136.66.99',
-    '5672',
+    os.environ['RABBITMQ_DEFAULT_USER'],
+    os.environ['RABBITMQ_DEFAULT_PASS'],
+    os.environ.get('RABBITMQ_DEFAULT_HOST', '127.0.0.1'),
+    os.environ.get('RABBITMQ_DEFAULT_PORT', '5672'),
 )
 
 from celery.schedules import crontab

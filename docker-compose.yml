@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  memcached:
+    image: memcached:latest
+    container_name: "memcached"
+    ports:
+      - "11211:11211"
+
+  db:
+    image: postgres:12.3-alpine
+    restart: always
+    container_name: "db"
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+#    environment:
+#      - POSTGRES_USER=mailler
+#      - POSTGRES_DB=mailler
+#      - POSTGRES_PASSWORD=few6FGweu4762qa345g5efsaOPqdwr
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  web:
+    image: nginx:1.19
+    container_name: "web"
+    ports:
+      - "80:80"
+      - "443:443"
+
+  broker:
+    image: rabbitmq:3-management
+    container_name: "broker"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    env_file:
+      - .env
+
+volumes:
+  db_data: {}

@@ -5,3 +5,5 @@ app/db.sqlite3
 .pytest_cache
 .coverage
 static_content
+.env
+app/celerybeat-schedule

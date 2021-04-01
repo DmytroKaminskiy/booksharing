@@ -23,5 +23,5 @@ pytest:
 flake8:
 	flake8 app/
 
-
-gunicorn booksharing.wsgi --workers=4 --bind 0.0.0.0:8000  --chdir=/home/ubuntu/projects/booksharing/app --timeout=30 --max-requests=10000
+build:
+	docker-compose up -d
