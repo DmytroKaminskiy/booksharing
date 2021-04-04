@@ -4,11 +4,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse_lazy
 
-from dotenv import load_dotenv
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".." / ".env")  # take environment variables from .env.
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -18,8 +14,6 @@ SECRET_KEY = 'kpm*)^nlw)0v0z=_1vmgj768o@q3=zru=u=a1%wi%=acj*hj@yp3(s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('ENV') == 'dev'  # 'dev' == 'dev'
-# DEBUG = False
-print(os.getenv('ENV'), DEBUG)
 
 ALLOWED_HOSTS = ['*']
 
@@ -158,7 +152,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_ROOT = BASE_DIR / '..' / 'static_content' / 'static'
+STATIC_ROOT = '/tmp/static'
 
 MEDIA_ROOT = BASE_DIR / '..' / 'media'
 MEDIA_URL = '/media/'
@@ -181,9 +175,6 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # REST_USE_JWT = True
@@ -225,3 +216,18 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
+
+if DEBUG:
+    import socket
+
+    ALLOWED_HOSTS = ['*']
+
+    # debug tool_bar
+    DEBUG_TOOLBAR_PATCH_SETTINGS = True
+    INTERNAL_IPS = ['127.0.0.1']
+
+    # tricks to have debug toolbar when developing with docker
+    ip = socket.gethostbyname(socket.gethostname())
+    ip = '.'.join(ip.split('.')[:-1])
+    ip = f'{ip}.1'
+    INTERNAL_IPS.append(ip)

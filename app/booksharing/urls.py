@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-import debug_toolbar
 from django.urls import include, path, re_path
 from accounts.views import MyProfileView, ContactUsView, SignUpView, ActivateView
 from books import views
@@ -37,11 +36,8 @@ urlpatterns = [
     path('accounts/contact-us/', ContactUsView.as_view(), name='contact-us'),
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
     path('accounts/activate/<uuid:username>/', ActivateView.as_view(), name='activate'),
-
-    path('__debug__/', include(debug_toolbar.urls)),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -61,3 +57,11 @@ urlpatterns += [
    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns.append(
+        path('__debug__/', include(debug_toolbar.urls)),
+    )

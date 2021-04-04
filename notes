@@ -16,3 +16,26 @@ pylint, flake8, pip check .travis.ci
 
 1. # add Model Category (name)
 2. Show book Category Name
+
+
+1. Добавить сервис Celerybeat и настроить запуск через start.sh
+CELERYBEAT_PID_FILE="/tmp/celerybeat.pid"
+CELERYBEAT_SCHEDULE_FILE="/tmp/celerybeat-schedule"
+
+rm "${CELERYBEAT_PID_FILE}" "${CELERYBEAT_SCHEDULE_FILE}"
+
+celery \
+--app settings beat \
+--loglevel=INFO \
+--schedule="${CELERYBEAT_SCHEDULE_FILE}" \
+--pidfile="${CELERYBEAT_PID_FILE}"
+
+2. Дописать start.sh
+  2.1 Если ENV равен 'dev' запустить runserver
+  2.2 Если ENV равен 'prod' запустить gunicorn
+
+3. Добавить сервис в docker-compose.yml pgadmin
+  https://hub.docker.com/r/dpage/pgadmin4/
+
+* добавить сервис portainer https://documentation.portainer.io/v2.0/deploy/ceinstalldocker/
+** добавить flower https://flower.readthedocs.io/en/latest/

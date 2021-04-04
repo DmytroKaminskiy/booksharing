@@ -1,12 +1,14 @@
 SHELL := /bin/bash
 
-manage_py := python app/manage.py
+manage_py := docker exec -it backend python3 app/manage.py
 
 runserver:
 	$(manage_py) runserver 0:8000
 
-run_celery:
-	celery -A booksharing worker -l info
+collectstatic:
+	$(manage_py) collectstatic --noinput && \
+	docker cp backend:/tmp/static /tmp/static && \
+	docker cp /tmp/static web:/etc/nginx/static
 
 migrate:
 	$(manage_py) migrate
@@ -23,5 +25,7 @@ pytest:
 flake8:
 	flake8 app/
 
-build:
-	docker-compose up -d
+build-dev:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+
+build: build-dev collectstatic
