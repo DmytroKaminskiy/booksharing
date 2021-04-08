@@ -14,6 +14,6 @@ elif [[ "${MODE}" == "worker" ]]; then
   celery \
     --app booksharing worker \
     --loglevel=INFO \
-    --autoscale=0,20 \
-    --pidfile="${CELERY_PID_FILE}"
+    --pidfile="${CELERY_PID_FILE}" \
+    --autoscale=0,20
 fi

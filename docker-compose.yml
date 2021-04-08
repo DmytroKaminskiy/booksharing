@@ -1,5 +1,17 @@
 version: "3.8"
 
+x-defaults: &x-defaults
+  env_file:
+    - .env
+  depends_on:
+    - db
+    - broker
+    - memcached
+  image: local:0.0.1
+  restart: always
+  build: .
+
+
 services:
   memcached:
     image: memcached:latest
@@ -26,6 +38,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - backend
 
   broker:
     image: rabbitmq:3-management
@@ -34,22 +48,14 @@ services:
       - .env
 
   backend:
-    image: local:0.0.1
-    restart: always
-    build: .
     container_name: "backend"
-    env_file:
-      - .env
+    <<: *x-defaults
 
   worker:
-    image: local:0.0.1
-    restart: always
-    build: .
     container_name: "worker"
-    env_file:
-      - .env
     environment:
       - MODE=worker
+    <<: *x-defaults
 
   # TODO: add celerybeat
 
