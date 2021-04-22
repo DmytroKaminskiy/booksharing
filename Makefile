@@ -28,4 +28,4 @@ flake8:
 build-dev:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 
-build: build-dev collectstatic
+build: build-dev collectstatic migrate

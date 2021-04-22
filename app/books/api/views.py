@@ -1,11 +1,14 @@
 from rest_framework import generics, viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from django.core.cache import cache
 
 from books.api.filters import BookFilter
 from books.api.serializers import BookSerializer, CategorySerializer
-from books.models import Book, Category
+from books.models import Book, Category, RequestBook
+from books import model_choices as mch
 
 
 # class BookList(generics.ListCreateAPIView):
@@ -52,6 +55,16 @@ class CategoryModelViewSet(viewsets.ModelViewSet):
 
         return Response(response_data)
 
+
+class CreateRequestView(generics.GenericAPIView):
+    authentication_classes = (SessionAuthentication, )
+    permission_classes = ()
+
+    def get(self, request, book_id):
+        book = get_object_or_404(Book, pk=book_id)
+        if not RequestBook.objects.filter(book=book, recipient=request.user, status=mch.STATUS_IN_PROGRESS).exists():
+            RequestBook.objects.create(book=book, recipient=request.user, status=mch.STATUS_IN_PROGRESS)
+        return Response({'message':'ok'})
 
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.cache import cache_page

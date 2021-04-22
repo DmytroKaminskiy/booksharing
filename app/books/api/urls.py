@@ -16,4 +16,8 @@ router = DefaultRouter()
 router.register('books', views.BookModelViewSet, basename='book')
 router.register('categories', views.CategoryModelViewSet, basename='category')
 
-urlpatterns = router.urls
+urlpatterns: list = router.urls
+
+urlpatterns += [
+    path('book/create/request/<int:book_id>/', views.CreateRequestView.as_view()),
+]
